@@ -23,6 +23,9 @@ unique_name_in_owner = true
 
 [node name="Health" type="Node" parent="." index="3"]
 script = ExtResource( 4 )
+_hurtMask = 4
 
 [node name="Weapon" parent="." index="4" instance=ExtResource( 5 )]
 unique_name_in_owner = true
+
+[connection signal="area_entered" from="." to="Health" method="OnAreaEntered"]

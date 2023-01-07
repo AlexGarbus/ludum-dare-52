@@ -17,6 +17,9 @@ namespace LudumDare52.Objects.Combat
         [Export]
         private readonly Shot _startShot;
 
+        [Export(PropertyHint.Layers2dPhysics)]
+        private readonly uint _collisionLayer;
+
         private bool _canShoot = true;
         private Shot _currentShot;
 
@@ -40,8 +43,8 @@ namespace LudumDare52.Objects.Combat
             foreach (PhysicsArea projectile in projectiles)
             {
                 projectile.GlobalPosition = GlobalPosition;
+                projectile.CollisionLayer = _collisionLayer;
                 AddChild(projectile);
-                // TODO: Set collision mask
             }
 
             _canShoot = false;
