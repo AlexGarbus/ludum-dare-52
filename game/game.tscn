@@ -20,7 +20,7 @@ script = ExtResource( 4 )
 autostart = true
 
 [node name="EnemyTimer" type="Timer" parent="."]
-wait_time = 5.0
+wait_time = 2.0
 autostart = true
 
 [node name="Player" parent="." instance=ExtResource( 2 )]
