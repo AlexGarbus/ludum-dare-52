@@ -4,6 +4,7 @@
 [ext_resource path="res://objects/characters/player/PlayerMovement.cs" type="Script" id=2]
 
 [node name="Player" instance=ExtResource( 1 )]
+collision_layer = 1
 collision_mask = 2
 
 [node name="Movement" parent="." index="2"]
