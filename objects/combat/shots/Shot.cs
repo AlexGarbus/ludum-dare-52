@@ -17,14 +17,21 @@ namespace LudumDare52.Objects.Combat
         [Export(PropertyHint.Range, "0,180")]
         private readonly float _spreadDegrees = 90f;
 
-        public PhysicsArea[] Instance()
+        public PhysicsArea[] Instance(Vector2 aimDirection)
         {
             var projectiles = new PhysicsArea[_projectileAmount];
-            float separation = _projectileAmount == 1 ? 0f : Mathf.Deg2Rad(_spreadDegrees) / _projectileAmount - 1;
+            float spreadRadians = Mathf.Deg2Rad(_spreadDegrees);
+            float separation = 0f;
+            Vector2 origin = aimDirection;
+            if (_projectileAmount > 1)
+            {
+                separation = spreadRadians / (_projectileAmount - 1);
+                origin = aimDirection.Rotated(-spreadRadians / 2);
+            }
 
             for (int i = 0; i < _projectileAmount; i++)
             {
-                projectiles[i] = CreateProjectile(Vector2.Right.Rotated(separation * i) * _projectileSpeed);
+                projectiles[i] = CreateProjectile(origin.Rotated(separation * i) * _projectileSpeed);
             }
 
             return projectiles;

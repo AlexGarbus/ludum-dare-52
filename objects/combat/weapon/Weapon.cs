@@ -36,7 +36,7 @@ namespace LudumDare52.Objects.Combat
                 return;
             }
 
-            PhysicsArea[] projectiles = _currentShot.Instance();
+            PhysicsArea[] projectiles = _currentShot.Instance(_aimDirection);
             foreach (PhysicsArea projectile in projectiles)
             {
                 projectile.GlobalPosition = GlobalPosition;
