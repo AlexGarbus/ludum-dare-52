@@ -13,6 +13,6 @@ script = ExtResource( 2 )
 [node name="Health" parent="." index="3"]
 _hurtMask = 10
 
-[node name="Weapon" parent="." index="4"]
+[node name="Weapon" parent="." index="5"]
 position = Vector2( 32, 0 )
 _collisionLayer = 4

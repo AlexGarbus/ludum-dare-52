@@ -20,7 +20,7 @@ namespace LudumDare52.Objects.Characters
 
         private Vector2 _moveVector = Vector2.Zero;
 
-        public override void _PhysicsProcess(float delta)
+        public override void OnPhysicsProcess(float delta)
         {
             MoveVector = new Vector2(
                     Input.GetAxis("move_left", "move_right"),

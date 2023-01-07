@@ -5,6 +5,9 @@ namespace LudumDare52.Objects.Characters
 {
     public class EnemyInput : CharacterInput
     {
-        // TODO: Enemy movement
+        public override void OnPhysicsProcess(float delta)
+        {
+            // TODO: Enemy movement
+        }
     }
 }

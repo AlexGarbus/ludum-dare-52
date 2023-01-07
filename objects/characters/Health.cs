@@ -6,7 +6,7 @@ namespace LudumDare52.Objects.Characters
     public class Health : Node
     {
         [Signal]
-        delegate void Changed(int current, int previous);
+        delegate void Changed(int current);
 
         [Export(PropertyHint.Range, "1,10,or_greater")]
         private readonly int _max = 3;
@@ -19,9 +19,8 @@ namespace LudumDare52.Objects.Characters
             get { return _current; }
             set
             {
-                int previous = _current;
                 _current = Mathf.Clamp(value, 0, _max);
-                EmitSignal(nameof(Changed), _current, previous);
+                EmitSignal(nameof(Changed), _current);
             }
         }
 
@@ -34,16 +33,9 @@ namespace LudumDare52.Objects.Characters
 
         public void OnAreaEntered(Area2D area)
         {
-            GD.Print(area.Name);
             if ((area.CollisionLayer & _hurtMask) != 0)
             {
                 Current--;
-
-                // TODO: Replace with signals sent to input/graphics components
-                if (Current == 0)
-                {
-                    Owner.QueueFree();
-                }
             }
         }
     }
