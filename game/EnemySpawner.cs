@@ -16,7 +16,7 @@ namespace LudumDare52.Game
         private readonly float _maxSpawnPositionY = 1080f;
 
         [Export]
-        private PackedScene[] _enemies;
+        private readonly PackedScene[] _enemies;
 
         public void Spawn()
         {

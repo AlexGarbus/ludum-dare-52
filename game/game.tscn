@@ -21,7 +21,7 @@ autostart = true
 [node name="Player" parent="." instance=ExtResource( 2 )]
 position = Vector2( 100, 540 )
 
-[node name="Enemies" type="Node" parent="."]
+[node name="EnemySpawner" type="Node" parent="."]
 script = ExtResource( 5 )
 _spawnPositionX = 1900.0
 _enemies = [ ExtResource( 1 ) ]
@@ -30,4 +30,4 @@ _enemies = [ ExtResource( 1 ) ]
 
 [connection signal="Changed" from="Score" to="HeadsUpDisplay" method="OnScoreChanged"]
 [connection signal="timeout" from="GameTimer" to="Score" method="Add" binds= [ 1 ]]
-[connection signal="timeout" from="EnemyTimer" to="Enemies" method="Spawn"]
+[connection signal="timeout" from="EnemyTimer" to="EnemySpawner" method="Spawn"]
