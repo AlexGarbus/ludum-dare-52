@@ -22,7 +22,6 @@ namespace LudumDare52.Game
         {
             Character enemy = (Character)_enemies[GD.Randi() % _enemies.Length].Instance();
             enemy.Position = GetSpawnPosition();
-            //CallDeferred("add_child", enemy);
             AddChild(enemy);
         }
 
