@@ -9,8 +9,8 @@ _aimDirection = Vector2( 1, 0 )
 _startShot = ExtResource( 2 )
 
 [node name="Cooldown" type="Timer" parent="."]
+unique_name_in_owner = true
 wait_time = 0.5
 one_shot = true
 
-[connection signal="ShotFired" from="." to="Cooldown" method="start"]
 [connection signal="timeout" from="Cooldown" to="." method="OnCooldownTimeout"]

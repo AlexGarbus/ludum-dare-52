@@ -6,7 +6,7 @@ namespace LudumDare52.Objects.Characters
     public class Health : Node
     {
         [Signal]
-        delegate void Changed(int current);
+        delegate void Changed(int current, int previous);
 
         [Export(PropertyHint.Range, "1,10,or_greater")]
         private readonly int _max = 3;
@@ -19,8 +19,9 @@ namespace LudumDare52.Objects.Characters
             get { return _current; }
             set
             {
+                int previous = _current;
                 _current = Mathf.Clamp(value, 0, _max);
-                EmitSignal(nameof(Changed), _current);
+                EmitSignal(nameof(Changed), _current, previous);
             }
         }
 

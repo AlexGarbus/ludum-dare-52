@@ -95,3 +95,4 @@ unique_name_in_owner = true
 
 [connection signal="area_entered" from="." to="Health" method="OnAreaEntered"]
 [connection signal="Changed" from="Health" to="Graphics" method="OnHealthChanged"]
+[connection signal="Changed" from="Health" to="Weapon" method="OnHealthChanged"]

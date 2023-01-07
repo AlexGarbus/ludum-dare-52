@@ -26,7 +26,7 @@ namespace LudumDare52.Objects.Characters
 
         public abstract void OnPhysicsProcess(float delta);
 
-        public void OnHealthChanged(int current)
+        public void OnHealthChanged(int current, int previous)
         {
             if (_receivingInput && current == 0)
             {

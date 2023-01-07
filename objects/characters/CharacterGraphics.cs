@@ -12,7 +12,7 @@ namespace LudumDare52.Objects.Characters
             _animationPlayer = GetNode<AnimationPlayer>("%AnimationPlayer");
         }
 
-        public void OnHealthChanged(int current)
+        public void OnHealthChanged(int current, int previous)
         {
             if (current == 0)
             {
