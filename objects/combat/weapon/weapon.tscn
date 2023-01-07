@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://objects/combat/weapon/Weapon.cs" type="Script" id=1]
+[ext_resource path="res://objects/combat/shots/peashot.tres" type="Resource" id=2]
+
+[node name="Weapon" type="Position2D"]
+script = ExtResource( 1 )
+_aimDirection = Vector2( 1, 0 )
+_startShot = ExtResource( 2 )

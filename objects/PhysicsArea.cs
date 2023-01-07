@@ -5,11 +5,15 @@ namespace LudumDare52.Objects
 {
     public class PhysicsArea : Area2D
     {
-        public Vector2 Velocity { get; set; }
+        private Vector2 _velocity;
 
         public override void _PhysicsProcess(float delta)
         {
-            Position += Velocity * delta;
+            Position += _velocity * delta;
         }
+
+        public Vector2 GetVelocity() => _velocity;
+
+        public Vector2 SetVelocity(Vector2 value) => _velocity = value;
     }
 }
