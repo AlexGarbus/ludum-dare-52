@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-namespace LudumDare52.Game
+namespace LudumDare52
 {
     public class Counter : Node
     {
