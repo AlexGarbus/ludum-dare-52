@@ -21,7 +21,7 @@ _global_script_class_icons={
 [application]
 
 config/name="Ludum Dare 52"
-run/main_scene="res://game/game.tscn"
+run/main_scene="res://intro/intro.tscn"
 config/icon="res://icon.png"
 
 [display]
@@ -39,6 +39,7 @@ version_control_plugin_name="GitAPI"
 [gui]
 
 common/drop_mouse_on_gui_input_disabled=true
+theme/custom="res://user_interface/theme/theme.tres"
 
 [input]
 

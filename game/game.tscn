@@ -1,12 +1,17 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://objects/characters/enemies/enemy.tscn" type="PackedScene" id=1]
 [ext_resource path="res://objects/characters/player/player.tscn" type="PackedScene" id=2]
 [ext_resource path="res://user_interface/heads_up_display/heads_up_display.tscn" type="PackedScene" id=3]
 [ext_resource path="res://game/Counter.cs" type="Script" id=4]
 [ext_resource path="res://game/EnemySpawner.cs" type="Script" id=5]
+[ext_resource path="res://game/background.png" type="Texture" id=6]
 
 [node name="Game" type="Node"]
+
+[node name="Background" type="Sprite" parent="."]
+texture = ExtResource( 6 )
+centered = false
 
 [node name="Score" type="Node" parent="."]
 script = ExtResource( 4 )
