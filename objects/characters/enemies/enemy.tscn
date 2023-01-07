@@ -7,6 +7,9 @@
 [node name="Enemy" instance=ExtResource( 1 )]
 collision_layer = 2
 
+[node name="Sprite" parent="." index="0"]
+flip_h = true
+
 [node name="CollisionShape2D" parent="." index="1"]
 modulate = Color( 1, 0, 0, 1 )
 
