@@ -12,6 +12,9 @@ namespace LudumDare52.Objects.Combat
         private readonly Vector2 _aimDirection;
 
         [Export]
+        private readonly bool _autoShoot = false;
+
+        [Export]
         private readonly Shot _startShot;
 
         private bool _canShoot = true;
@@ -20,6 +23,10 @@ namespace LudumDare52.Objects.Combat
         public override void _Ready()
         {
             _currentShot = _startShot;
+            if (_autoShoot)
+            {
+                Shoot();
+            }
         }
 
         public void Shoot()
@@ -41,6 +48,13 @@ namespace LudumDare52.Objects.Combat
             EmitSignal(nameof(ShotFired));
         }
 
-        public void OnCooldownTimeout() => _canShoot = true;
+        public void OnCooldownTimeout()
+        {
+            _canShoot = true;
+            if (_autoShoot)
+            {
+                Shoot();
+            }
+        }
     }
 }
