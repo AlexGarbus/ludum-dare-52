@@ -12,3 +12,8 @@ polygon = PoolVector2Array( -8, 0, 0, -8, 8, 0, 0, 8 )
 
 [node name="CollisionShape2D" parent="." index="1"]
 shape = SubResource( 1 )
+
+[node name="VisibilityNotifier2D" type="VisibilityNotifier2D" parent="." index="2"]
+rect = Rect2( -4, -4, 8, 8 )
+
+[connection signal="screen_exited" from="VisibilityNotifier2D" to="." method="queue_free"]
