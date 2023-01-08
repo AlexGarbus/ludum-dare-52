@@ -1,11 +1,11 @@
 [gd_resource type="Resource" load_steps=3 format=2]
 
-[ext_resource path="res://objects/combat/projectiles/projectile_yellow.tscn" type="PackedScene" id=1]
+[ext_resource path="res://objects/combat/projectiles/projectile_red.tscn" type="PackedScene" id=1]
 [ext_resource path="res://objects/combat/shots/Shot.cs" type="Script" id=2]
 
 [resource]
 script = ExtResource( 2 )
 _projectile = ExtResource( 1 )
-_projectileAmount = 3
-_projectileSpeed = 750.0
-_spreadDegrees = 90.0
+_projectileAmount = 1
+_projectileSpeed = 650.0
+_spreadDegrees = 0.0
