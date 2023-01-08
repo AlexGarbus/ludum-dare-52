@@ -6,6 +6,9 @@ namespace LudumDare52.Game
 {
     public class EnemySpawner : Node
     {
+        [Signal]
+        delegate void Spawned(Character enemy);
+
         [Export(PropertyHint.Range, "0,10,or_greater")]
         private readonly int _maxEnemies = 10;
 
@@ -31,6 +34,7 @@ namespace LudumDare52.Game
             Character enemy = (Character)_enemies[GD.Randi() % _enemies.Length].Instance();
             enemy.Position = GetSpawnPosition();
             AddChild(enemy);
+            EmitSignal(nameof(Spawned), enemy);
         }
 
         private Vector2 GetSpawnPosition()
