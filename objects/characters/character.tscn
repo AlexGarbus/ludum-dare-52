@@ -3,14 +3,14 @@
 [ext_resource path="res://objects/physics_area.tscn" type="PackedScene" id=1]
 [ext_resource path="res://objects/characters/lettuce.png" type="Texture" id=2]
 [ext_resource path="res://objects/characters/Character.cs" type="Script" id=3]
-[ext_resource path="res://objects/characters/Health.cs" type="Script" id=4]
+[ext_resource path="res://objects/characters/components/Health.cs" type="Script" id=4]
 [ext_resource path="res://objects/combat/weapon/weapon.tscn" type="PackedScene" id=5]
-[ext_resource path="res://objects/characters/CharacterGraphics.cs" type="Script" id=6]
-[ext_resource path="res://objects/characters/CharacterSound.cs" type="Script" id=7]
+[ext_resource path="res://objects/characters/components/CharacterGraphics.cs" type="Script" id=6]
+[ext_resource path="res://objects/characters/components/CharacterSound.cs" type="Script" id=7]
 [ext_resource path="res://objects/characters/destroy.wav" type="AudioStream" id=8]
 [ext_resource path="res://objects/characters/damage.wav" type="AudioStream" id=9]
 [ext_resource path="res://objects/characters/thrust_particles.tscn" type="PackedScene" id=10]
-[ext_resource path="res://objects/characters/CharacterParticles.cs" type="Script" id=11]
+[ext_resource path="res://objects/characters/components/CharacterParticles.cs" type="Script" id=11]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 32.0
@@ -115,15 +115,18 @@ shape = SubResource( 1 )
 [node name="Weapon" parent="." index="3" instance=ExtResource( 5 )]
 unique_name_in_owner = true
 
-[node name="Input" type="Node" parent="." index="4"]
+[node name="VisibilityNotifier2D" type="VisibilityNotifier2D" parent="." index="4"]
+rect = Rect2( -23, -23, 46, 46 )
+
+[node name="Input" type="Node" parent="." index="5"]
 unique_name_in_owner = true
 
-[node name="Health" type="Node" parent="." index="5"]
+[node name="Health" type="Node" parent="." index="6"]
 unique_name_in_owner = true
 script = ExtResource( 4 )
 _hurtMask = 4
 
-[node name="Graphics" type="Node" parent="." index="6"]
+[node name="Graphics" type="Node" parent="." index="7"]
 script = ExtResource( 6 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Graphics" index="0"]
@@ -132,7 +135,7 @@ anims/RESET = SubResource( 2 )
 anims/damage = SubResource( 4 )
 anims/destroy = SubResource( 3 )
 
-[node name="Sound" type="Node" parent="." index="7"]
+[node name="Sound" type="Node" parent="." index="8"]
 script = ExtResource( 7 )
 
 [node name="DamageSound" type="AudioStreamPlayer" parent="Sound" index="0"]
