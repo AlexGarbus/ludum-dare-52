@@ -24,6 +24,7 @@ config/name="Imma Head Out"
 config/description="Submission for Ludum Dare 52. Theme: Harvest."
 run/main_scene="res://intro/intro.tscn"
 config/icon="res://icon.png"
+config/windows_native_icon="res://icon.ico"
 
 [display]
 
