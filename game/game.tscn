@@ -52,6 +52,7 @@ visible = false
 stream = ExtResource( 10 )
 autoplay = true
 
+[connection signal="Ended" from="." to="GameTimer" method="stop"]
 [connection signal="Ended" from="." to="GameOver" method="show"]
 [connection signal="Ended" from="." to="MusicPlayer" method="stop"]
 [connection signal="Changed" from="Player/Health" to="." method="OnPlayerHealthChanged"]
