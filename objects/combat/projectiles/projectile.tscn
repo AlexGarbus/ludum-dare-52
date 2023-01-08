@@ -13,11 +13,16 @@ radius = 6.0
 scale = Vector2( 0.188, 0.188 )
 texture = ExtResource( 2 )
 
+[node name="Glow" type="Sprite" parent="Sprite" index="0"]
+modulate = Color( 1, 1, 1, 0.498039 )
+show_behind_parent = true
+scale = Vector2( 1.32979, 1.32979 )
+texture = ExtResource( 2 )
+
 [node name="CollisionShape2D" parent="." index="1"]
 shape = SubResource( 1 )
 
 [node name="VisibilityNotifier2D" type="VisibilityNotifier2D" parent="." index="2"]
-rect = Rect2( -4, -4, 8, 8 )
 
 [node name="FreeOnCollision" type="Node" parent="." index="3"]
 script = ExtResource( 3 )
