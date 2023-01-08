@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://objects/physics_area.tscn" type="PackedScene" id=1]
 [ext_resource path="res://objects/characters/lettuce.png" type="Texture" id=2]
@@ -6,6 +6,9 @@
 [ext_resource path="res://objects/characters/Health.cs" type="Script" id=4]
 [ext_resource path="res://objects/combat/weapon/weapon.tscn" type="PackedScene" id=5]
 [ext_resource path="res://objects/characters/CharacterGraphics.cs" type="Script" id=6]
+[ext_resource path="res://objects/characters/CharacterSound.cs" type="Script" id=7]
+[ext_resource path="res://objects/characters/destroy.wav" type="AudioStream" id=8]
+[ext_resource path="res://objects/characters/damage.wav" type="AudioStream" id=9]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 32.0
@@ -93,6 +96,18 @@ unique_name_in_owner = true
 anims/RESET = SubResource( 2 )
 anims/destroy = SubResource( 3 )
 
+[node name="Sound" type="Node" parent="." index="6"]
+script = ExtResource( 7 )
+
+[node name="DamageSound" type="AudioStreamPlayer" parent="Sound" index="0"]
+unique_name_in_owner = true
+stream = ExtResource( 9 )
+
+[node name="DestroySound" type="AudioStreamPlayer" parent="Sound" index="1"]
+unique_name_in_owner = true
+stream = ExtResource( 8 )
+
 [connection signal="area_entered" from="." to="Health" method="OnAreaEntered"]
 [connection signal="Changed" from="Health" to="Weapon" method="OnHealthChanged"]
 [connection signal="Changed" from="Health" to="Graphics" method="OnHealthChanged"]
+[connection signal="Changed" from="Health" to="Sound" method="OnHealthChanged"]
