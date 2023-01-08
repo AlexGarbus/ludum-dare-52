@@ -1,4 +1,5 @@
 using LudumDare52.Objects.Characters;
+using LudumDare52.Saving;
 using Godot;
 using System;
 
@@ -67,7 +68,17 @@ namespace LudumDare52.Game
         private void EndGame()
         {
             _state = State.OVER;
+            EvaluateScore();
             EmitSignal(nameof(Ended));
+        }
+
+        private void EvaluateScore()
+        {
+            int bestScore = SaveLoad.Load();
+            if (_score.Count > bestScore)
+            {
+                SaveLoad.Save(_score.Count);
+            }
         }
     }
 }
