@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://objects/characters/character.tscn" type="PackedScene" id=1]
 [ext_resource path="res://objects/characters/player/PlayerInput.cs" type="Script" id=2]
+[ext_resource path="res://objects/PositionBounds.cs" type="Script" id=3]
 
 [node name="Player" instance=ExtResource( 1 )]
 collision_layer = 1
@@ -16,3 +17,7 @@ script = ExtResource( 2 )
 
 [node name="Health" parent="." index="4"]
 _hurtMask = 10
+
+[node name="PositionBounds" type="Node" parent="." index="6"]
+script = ExtResource( 3 )
+_boundsRect = Rect2( 100, 100, 1720, 880 )

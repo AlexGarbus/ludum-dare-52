@@ -94,5 +94,5 @@ anims/RESET = SubResource( 2 )
 anims/destroy = SubResource( 3 )
 
 [connection signal="area_entered" from="." to="Health" method="OnAreaEntered"]
-[connection signal="Changed" from="Health" to="Graphics" method="OnHealthChanged"]
 [connection signal="Changed" from="Health" to="Weapon" method="OnHealthChanged"]
+[connection signal="Changed" from="Health" to="Graphics" method="OnHealthChanged"]
