@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://objects/physics_area.tscn" type="PackedScene" id=1]
 [ext_resource path="res://objects/characters/lettuce.png" type="Texture" id=2]
@@ -11,6 +11,7 @@
 [ext_resource path="res://objects/characters/damage.wav" type="AudioStream" id=9]
 [ext_resource path="res://objects/characters/thrust_particles.tscn" type="PackedScene" id=10]
 [ext_resource path="res://objects/characters/components/CharacterParticles.cs" type="Script" id=11]
+[ext_resource path="res://objects/characters/CharacterVisibility.cs" type="Script" id=12]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 32.0
@@ -117,6 +118,7 @@ unique_name_in_owner = true
 
 [node name="VisibilityNotifier2D" type="VisibilityNotifier2D" parent="." index="4"]
 rect = Rect2( -23, -23, 46, 46 )
+script = ExtResource( 12 )
 
 [node name="Input" type="Node" parent="." index="5"]
 unique_name_in_owner = true
