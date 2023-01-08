@@ -7,12 +7,12 @@
 collision_layer = 1
 collision_mask = 10
 
-[node name="Input" parent="." index="2"]
-script = ExtResource( 2 )
-
-[node name="Health" parent="." index="3"]
-_hurtMask = 10
-
-[node name="Weapon" parent="." index="5"]
+[node name="Weapon" parent="." index="2"]
 position = Vector2( 32, 0 )
 _collisionLayer = 4
+
+[node name="Input" parent="." index="3"]
+script = ExtResource( 2 )
+
+[node name="Health" parent="." index="4"]
+_hurtMask = 10

@@ -14,10 +14,7 @@ flip_h = true
 [node name="CollisionShape2D" parent="." index="1"]
 modulate = Color( 1, 0, 0, 1 )
 
-[node name="Input" parent="." index="2"]
-script = ExtResource( 2 )
-
-[node name="Weapon" parent="." index="4"]
+[node name="Weapon" parent="." index="2"]
 position = Vector2( -32, 0 )
 _aimDirection = Vector2( -1, 0 )
 _autoShoot = true
@@ -26,5 +23,8 @@ _collisionLayer = 8
 
 [node name="Cooldown" parent="Weapon" index="0"]
 wait_time = 2.0
+
+[node name="Input" parent="." index="3"]
+script = ExtResource( 2 )
 
 [editable path="Weapon"]
