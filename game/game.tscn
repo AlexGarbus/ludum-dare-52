@@ -33,7 +33,7 @@ _enemies = [ ExtResource( 1 ) ]
 autostart = true
 
 [node name="EnemyTimer" type="Timer" parent="."]
-wait_time = 2.0
+wait_time = 2.1
 autostart = true
 
 [node name="Score" type="Node" parent="."]
