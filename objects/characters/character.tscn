@@ -113,7 +113,6 @@ texture = ExtResource( 2 )
 
 [node name="CollisionShape2D" parent="." index="2"]
 shape = SubResource( 1 )
-disabled = true
 
 [node name="Weapon" parent="." index="3" instance=ExtResource( 5 )]
 unique_name_in_owner = true

@@ -75,14 +75,14 @@ namespace LudumDare52.Objects.Characters
         {
             if (_inputState == State.COMBAT && current == 0)
             {
-                _inputState = State.EXIT;
+                InputState = State.EXIT;
             }
         }
 
         public void OnEnterTimerTimeout()
         {
             EmitSignal(nameof(MoveInputReceived), Vector2.Zero);
-            _inputState = State.COMBAT;
+            InputState = State.COMBAT;
         }
 
         private void EmitStateSignal(State state)
