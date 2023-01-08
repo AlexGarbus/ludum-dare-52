@@ -126,6 +126,8 @@ unique_name_in_owner = true
 
 [node name="EnterTimer" type="Timer" parent="Input" index="0"]
 unique_name_in_owner = true
+wait_time = 0.5
+one_shot = true
 autostart = true
 
 [node name="Health" type="Node" parent="." index="6"]
