@@ -1,0 +1,74 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://general/circle.png" type="Texture" id=1]
+[ext_resource path="res://game/background/background.png" type="Texture" id=2]
+
+[sub_resource type="Animation" id=1]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("StarParticles:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=2]
+resource_name = "hide"
+tracks/0/type = "value"
+tracks/0/path = NodePath("StarParticles:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+
+[sub_resource type="Animation" id=3]
+resource_name = "show"
+tracks/0/type = "value"
+tracks/0/path = NodePath("StarParticles:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+
+[node name="Background" type="Sprite"]
+z_index = -1
+texture = ExtResource( 2 )
+centered = false
+
+[node name="StarParticles" type="CPUParticles2D" parent="."]
+position = Vector2( 1984, 540 )
+amount = 16
+lifetime = 5.0
+texture = ExtResource( 1 )
+emission_shape = 2
+emission_rect_extents = Vector2( 1, 540 )
+direction = Vector2( -1, 0 )
+spread = 0.0
+gravity = Vector2( 0, 0 )
+initial_velocity = 500.0
+scale_amount = 0.1
+scale_amount_random = 0.25
+color = Color( 0.356863, 0.392157, 0.607843, 1 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/RESET = SubResource( 1 )
+anims/hide = SubResource( 2 )
+anims/show = SubResource( 3 )

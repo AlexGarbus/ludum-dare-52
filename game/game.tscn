@@ -5,7 +5,7 @@
 [ext_resource path="res://user_interface/heads_up_display/heads_up_display.tscn" type="PackedScene" id=3]
 [ext_resource path="res://general/Counter.cs" type="Script" id=4]
 [ext_resource path="res://game/EnemySpawner.cs" type="Script" id=5]
-[ext_resource path="res://game/background.png" type="Texture" id=6]
+[ext_resource path="res://game/background/background.tscn" type="PackedScene" id=6]
 [ext_resource path="res://user_interface/game_over/game_over.tscn" type="PackedScene" id=7]
 [ext_resource path="res://general/PressedInput.cs" type="Script" id=8]
 [ext_resource path="res://game/Game.cs" type="Script" id=9]
@@ -15,9 +15,7 @@
 script = ExtResource( 9 )
 _introScenePath = "res://intro/intro.tscn"
 
-[node name="Background" type="Sprite" parent="."]
-texture = ExtResource( 6 )
-centered = false
+[node name="Background" parent="." instance=ExtResource( 6 )]
 
 [node name="Player" parent="." instance=ExtResource( 2 )]
 position = Vector2( 100, 540 )
