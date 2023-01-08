@@ -57,6 +57,7 @@ centered = false
 position = Vector2( 1984, 540 )
 amount = 16
 lifetime = 5.0
+preprocess = 5.0
 texture = ExtResource( 1 )
 emission_shape = 2
 emission_rect_extents = Vector2( 1, 540 )
@@ -69,6 +70,7 @@ scale_amount_random = 0.25
 color = Color( 0.145098, 0.164706, 0.294118, 1 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "show"
 anims/RESET = SubResource( 1 )
 anims/hide = SubResource( 2 )
 anims/show = SubResource( 3 )
