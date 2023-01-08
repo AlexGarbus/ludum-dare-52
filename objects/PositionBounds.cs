@@ -26,7 +26,7 @@ namespace LudumDare52.Objects
                 return;
             }
 
-            _boundedNode.Position = BoundPosition(_boundedNode.Position);
+            _boundedNode.GlobalPosition = BoundPosition(_boundedNode.GlobalPosition);
         }
 
         public override string _GetConfigurationWarning()
