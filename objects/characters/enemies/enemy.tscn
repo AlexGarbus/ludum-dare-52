@@ -30,5 +30,6 @@ wait_time = 2.0
 
 [node name="Input" parent="." index="5"]
 script = ExtResource( 2 )
+_enterDirection = Vector2( -1, 0 )
 
 [editable path="Weapon"]

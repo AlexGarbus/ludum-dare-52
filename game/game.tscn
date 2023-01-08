@@ -19,11 +19,14 @@ _introScenePath = "res://intro/intro.tscn"
 
 [node name="Player" parent="." instance=ExtResource( 2 )]
 unique_name_in_owner = true
-position = Vector2( 100, 540 )
+position = Vector2( -100, 540 )
+
+[node name="CollisionShape2D" parent="Player" index="2"]
+disabled = false
 
 [node name="EnemySpawner" type="Node" parent="."]
 script = ExtResource( 5 )
-_spawnPositionX = 1820.0
+_spawnPositionX = 2020.0
 _minSpawnPositionY = 100.0
 _maxSpawnPositionY = 980.0
 _enemies = [ ExtResource( 1 ) ]

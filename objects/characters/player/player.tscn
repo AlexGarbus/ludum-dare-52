@@ -16,6 +16,11 @@ _collisionLayer = 4
 
 [node name="Input" parent="." index="5"]
 script = ExtResource( 2 )
+_enterDirection = Vector2( 1, 0 )
+
+[node name="EnterTimer" parent="Input" index="0"]
+wait_time = 0.5
+one_shot = true
 
 [node name="Health" parent="." index="6"]
 _hurtMask = 10

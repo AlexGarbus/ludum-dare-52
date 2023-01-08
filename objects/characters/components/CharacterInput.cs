@@ -12,50 +12,93 @@ namespace LudumDare52.Objects.Characters
         delegate void ShootInputReceived();
 
         [Signal]
-        delegate void InputStarted();
+        delegate void EnterInputStarted();
 
         [Signal]
-        delegate void InputStopped();
+        delegate void CombatInputStarted();
+
+        [Signal]
+        delegate void ExitInputStarted();
+
+        protected enum State
+        {
+            ENTER,
+            COMBAT,
+            EXIT
+        }
 
         [Export(PropertyHint.Range, "0,1000,or_greater")]
         protected float _moveSpeed = 500f;
 
-        protected bool ReceivingInput
+        [Export]
+        private Vector2 _enterDirection;
+
+        protected State InputState
         {
-            get { return _receivingInput; }
+            get { return _inputState; }
             set
             {
-                if ( _receivingInput != value)
+                if ( _inputState != value)
                 {
-                    _receivingInput = value;
-                    EmitSignal(_receivingInput ? nameof(InputStarted) : nameof(InputStopped));
+                    _inputState = value;
+                    EmitStateSignal(_inputState);
                 }
             }
         }
 
-        private bool _receivingInput = true;
+        private State _inputState = State.ENTER;
+
+        public override void _Ready()
+        {
+            GetNode<Timer>("%EnterTimer").Connect("timeout", this, nameof(OnEnterTimerTimeout));
+        }
 
         public override void _PhysicsProcess(float delta)
         {
-            if (_receivingInput)
+            switch (_inputState)
             {
-                OnPhysicsProcess(delta);
+                case State.ENTER:
+                    EmitSignal(nameof(MoveInputReceived), _enterDirection * _moveSpeed);
+                    break;
+                case State.COMBAT:
+                    CombatInput(delta);
+                    break;
+                case State.EXIT:
+                    EmitSignal(nameof(MoveInputReceived), Vector2.Left * _moveSpeed);
+                    break;
             }
         }
 
-        public abstract void OnPhysicsProcess(float delta);
+        public abstract void CombatInput(float delta);
 
         public void OnHealthChanged(int current, int previous)
         {
-            if (_receivingInput && current == 0)
+            if (_inputState == State.COMBAT && current == 0)
             {
-                EmitSignal(nameof(MoveInputReceived), Vector2.Left * _moveSpeed);
-                ReceivingInput = false;
+                _inputState = State.EXIT;
             }
         }
 
-        public void StartInput() => ReceivingInput = true;
+        public void OnEnterTimerTimeout()
+        {
+            EmitSignal(nameof(MoveInputReceived), Vector2.Zero);
+            _inputState = State.COMBAT;
+        }
 
-        public void StopInput() => ReceivingInput = false;
+        private void EmitStateSignal(State state)
+        {
+            switch (state)
+            {
+                case State.ENTER:
+                    EmitSignal(nameof(EnterInputStarted));
+                    break;
+                case State.COMBAT:
+                    EmitSignal(nameof(CombatInputStarted));
+                    break;
+                case State.EXIT:
+                    EmitSignal(nameof(ExitInputStarted));
+                    break;
+            }
+        }
     }
 }

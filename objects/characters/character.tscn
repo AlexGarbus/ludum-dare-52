@@ -113,6 +113,7 @@ texture = ExtResource( 2 )
 
 [node name="CollisionShape2D" parent="." index="2"]
 shape = SubResource( 1 )
+disabled = true
 
 [node name="Weapon" parent="." index="3" instance=ExtResource( 5 )]
 unique_name_in_owner = true
@@ -123,6 +124,10 @@ script = ExtResource( 12 )
 
 [node name="Input" type="Node" parent="." index="5"]
 unique_name_in_owner = true
+
+[node name="EnterTimer" type="Timer" parent="Input" index="0"]
+unique_name_in_owner = true
+autostart = true
 
 [node name="Health" type="Node" parent="." index="6"]
 unique_name_in_owner = true
@@ -153,6 +158,7 @@ stream = ExtResource( 8 )
 unique_name_in_owner = true
 script = ExtResource( 13 )
 _boundsRect = Rect2( 100, 100, 1720, 880 )
+_disabled = true
 
 [connection signal="area_entered" from="." to="Health" method="OnAreaEntered"]
 [connection signal="Changed" from="Health" to="Particles" method="OnHealthChanged"]
