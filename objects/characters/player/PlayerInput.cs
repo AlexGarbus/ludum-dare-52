@@ -5,21 +5,6 @@ namespace LudumDare52.Objects.Characters
 {
     public class PlayerInput : CharacterInput
     {
-        private Vector2 MoveVector
-        {
-            get { return _moveVector; }
-            set
-            {
-                if (value != _moveVector)
-                {
-                    _moveVector = value;
-                    EmitSignal("MoveInputReceived", _moveVector);
-                }
-            }
-        }
-
-        private Vector2 _moveVector = Vector2.Zero;
-
         public override void CombatInput(float delta)
         {
             MoveVector = new Vector2(

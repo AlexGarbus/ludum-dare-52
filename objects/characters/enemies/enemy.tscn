@@ -32,4 +32,11 @@ wait_time = 2.0
 script = ExtResource( 2 )
 _enterDirection = Vector2( -1, 0 )
 
+[node name="CombatTimer" type="Timer" parent="Input" index="1"]
+unique_name_in_owner = true
+
+[connection signal="CombatInputStarted" from="Input" to="Input/CombatTimer" method="start" binds= [ 0.25 ]]
+[connection signal="ExitInputStarted" from="Input" to="Input/CombatTimer" method="stop"]
+[connection signal="timeout" from="Input/CombatTimer" to="Input" method="OnCombatTimerTimeout"]
+
 [editable path="Weapon"]

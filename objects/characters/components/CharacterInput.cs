@@ -46,6 +46,21 @@ namespace LudumDare52.Objects.Characters
             }
         }
 
+        protected Vector2 MoveVector
+        {
+            get { return _moveVector; }
+            set
+            {
+                if (value != _moveVector)
+                {
+                    _moveVector = value;
+                    EmitSignal("MoveInputReceived", _moveVector);
+                }
+            }
+        }
+
+        private Vector2 _moveVector = Vector2.Zero;
+
         private State _inputState = State.ENTER;
 
         public override void _Ready()
@@ -58,18 +73,18 @@ namespace LudumDare52.Objects.Characters
             switch (_inputState)
             {
                 case State.ENTER:
-                    EmitSignal(nameof(MoveInputReceived), _enterDirection * _moveSpeed);
+                    MoveVector = _enterDirection * _moveSpeed;
                     break;
                 case State.COMBAT:
                     CombatInput(delta);
                     break;
                 case State.EXIT:
-                    EmitSignal(nameof(MoveInputReceived), Vector2.Left * _moveSpeed);
+                    MoveVector = Vector2.Left * _moveSpeed;
                     break;
             }
         }
 
-        public abstract void CombatInput(float delta);
+        public virtual void CombatInput(float delta) { }
 
         public void OnHealthChanged(int current, int previous)
         {
@@ -81,7 +96,7 @@ namespace LudumDare52.Objects.Characters
 
         public void OnEnterTimerTimeout()
         {
-            EmitSignal(nameof(MoveInputReceived), Vector2.Zero);
+            MoveVector = Vector2.Zero;
             InputState = State.COMBAT;
         }
 
