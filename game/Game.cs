@@ -1,5 +1,6 @@
 using LudumDare52.Objects.Characters;
 using LudumDare52.Saving;
+using LudumDare52.UserInterface;
 using Godot;
 using System;
 
@@ -32,6 +33,7 @@ namespace LudumDare52.Game
         {
             _score = GetNode<Counter>("%Score");
             _endTimer = GetNode<Timer>("%EndTimer");
+            InitializeUserInterface();
             GD.Randomize();
         }
 
@@ -81,6 +83,13 @@ namespace LudumDare52.Game
             {
                 SaveLoad.Save(_score.Count);
             }
+        }
+
+        private void InitializeUserInterface()
+        {
+            HealthDisplay _healthDisplay = GetNode<HeadsUpDisplay>("%HeadsUpDisplay").GetNode<HealthDisplay>("%HealthDisplay");
+            Health _playerHealth = GetNode<Character>("%Player").GetNode<Health>("%Health");
+            _healthDisplay.Initialize(_playerHealth);
         }
     }
 }

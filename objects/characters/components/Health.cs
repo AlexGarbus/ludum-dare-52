@@ -35,6 +35,8 @@ namespace LudumDare52.Objects.Characters
             Current = _max;
         }
 
+        public int GetMax() => _max;
+
         public void OnAreaEntered(Area2D area)
         {
             if (Current == 0)

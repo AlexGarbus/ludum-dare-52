@@ -3,4 +3,5 @@
 [ext_resource path="res://user_interface/theme/font_regular.tres" type="DynamicFont" id=1]
 
 [resource]
+HBoxContainer/constants/separation = 20
 Label/fonts/font = ExtResource( 1 )
