@@ -37,6 +37,11 @@ namespace LudumDare52.Objects.Characters
 
         public void OnAreaEntered(Area2D area)
         {
+            if (Current == 0)
+            {
+                return;
+            }
+
             if ((area.CollisionLayer & _hurtMask) != 0)
             {
                 Current--;
