@@ -8,6 +8,9 @@ namespace LudumDare52.Objects.Combat
         [Signal]
         delegate void ShotFired();
 
+        [Signal]
+        delegate void CooldownEnded();
+
         [Export]
         private readonly Vector2 _aimDirection;
 
@@ -61,6 +64,7 @@ namespace LudumDare52.Objects.Combat
         public void OnCooldownTimeout()
         {
             _canShoot = true;
+            EmitSignal(nameof(CooldownEnded));
             if (_autoShoot)
             {
                 Shoot();

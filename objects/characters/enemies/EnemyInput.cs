@@ -26,25 +26,25 @@ namespace LudumDare52.Objects.Characters
             if (_moving)
             {
                 RandomizeCombatInput();
+                StartCombatTimer();
             }
             else
             {
                 MoveVector = Vector2.Zero;
                 EmitSignal("ShootInputReceived");
             }
-            StartCombatTimer();
+        }
+
+        public void StartCombatTimer()
+        {
+            float time = _baseCombatTime + (float)GD.RandRange(-_combatTimeVariance, _combatTimeVariance);
+            _combatTimer.Start(time);
         }
 
         private void RandomizeCombatInput()
         {
             float angle = Mathf.Deg2Rad(GD.Randi() % 360);
             MoveVector = Vector2.Right.Rotated(angle) * _moveSpeed;
-        }
-
-        private void StartCombatTimer()
-        {
-            float time = _baseCombatTime + (float)GD.RandRange(-_combatTimeVariance, _combatTimeVariance);
-            _combatTimer.Start(time);
         }
     }
 }
