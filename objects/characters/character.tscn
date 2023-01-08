@@ -1,0 +1,150 @@
+[gd_scene load_steps=16 format=2]
+
+[ext_resource path="res://objects/physics_area.tscn" type="PackedScene" id=1]
+[ext_resource path="res://objects/characters/lettuce.png" type="Texture" id=2]
+[ext_resource path="res://objects/characters/Character.cs" type="Script" id=3]
+[ext_resource path="res://objects/characters/Health.cs" type="Script" id=4]
+[ext_resource path="res://objects/combat/weapon/weapon.tscn" type="PackedScene" id=5]
+[ext_resource path="res://objects/characters/CharacterGraphics.cs" type="Script" id=6]
+[ext_resource path="res://objects/characters/CharacterSound.cs" type="Script" id=7]
+[ext_resource path="res://objects/characters/destroy.wav" type="AudioStream" id=8]
+[ext_resource path="res://objects/characters/damage.wav" type="AudioStream" id=9]
+[ext_resource path="res://objects/characters/thrust_particles.tscn" type="PackedScene" id=10]
+[ext_resource path="res://objects/characters/CharacterParticles.cs" type="Script" id=11]
+
+[sub_resource type="CircleShape2D" id=1]
+radius = 32.0
+
+[sub_resource type="Animation" id=2]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("../Sprite:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("../Sprite:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=4]
+resource_name = "damage"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/path = NodePath("../Sprite:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4, 0.6 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ 0.0, 45.0, -45.0, 0.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("../Sprite:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4, 0.6 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 0.407843, 0.407843, 0.407843, 1 ), Color( 0.407843, 0.407843, 0.407843, 1 ), Color( 1, 1, 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=3]
+resource_name = "destroy"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("../Sprite:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, 359.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("../Sprite:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 0.407843, 0.407843, 0.407843, 1 ) ]
+}
+
+[node name="Character" instance=ExtResource( 1 )]
+script = ExtResource( 3 )
+
+[node name="Particles" parent="." index="0" instance=ExtResource( 10 )]
+position = Vector2( -32, 0 )
+rotation = 1.5708
+script = ExtResource( 11 )
+
+[node name="Sprite" type="Sprite" parent="." index="1"]
+texture = ExtResource( 2 )
+
+[node name="CollisionShape2D" parent="." index="2"]
+shape = SubResource( 1 )
+
+[node name="Weapon" parent="." index="3" instance=ExtResource( 5 )]
+unique_name_in_owner = true
+
+[node name="Input" type="Node" parent="." index="4"]
+unique_name_in_owner = true
+
+[node name="Health" type="Node" parent="." index="5"]
+unique_name_in_owner = true
+script = ExtResource( 4 )
+_hurtMask = 4
+
+[node name="Graphics" type="Node" parent="." index="6"]
+script = ExtResource( 6 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Graphics" index="0"]
+unique_name_in_owner = true
+anims/RESET = SubResource( 2 )
+anims/damage = SubResource( 4 )
+anims/destroy = SubResource( 3 )
+
+[node name="Sound" type="Node" parent="." index="7"]
+script = ExtResource( 7 )
+
+[node name="DamageSound" type="AudioStreamPlayer" parent="Sound" index="0"]
+unique_name_in_owner = true
+stream = ExtResource( 9 )
+
+[node name="DestroySound" type="AudioStreamPlayer" parent="Sound" index="1"]
+unique_name_in_owner = true
+stream = ExtResource( 8 )
+
+[connection signal="area_entered" from="." to="Health" method="OnAreaEntered"]
+[connection signal="Changed" from="Health" to="Particles" method="OnHealthChanged"]
+[connection signal="Changed" from="Health" to="Weapon" method="OnHealthChanged"]
+[connection signal="Changed" from="Health" to="Graphics" method="OnHealthChanged"]
+[connection signal="Changed" from="Health" to="Sound" method="OnHealthChanged"]

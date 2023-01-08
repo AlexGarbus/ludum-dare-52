@@ -1,0 +1,65 @@
+[gd_scene load_steps=11 format=2]
+
+[ext_resource path="res://objects/characters/enemies/enemy.tscn" type="PackedScene" id=1]
+[ext_resource path="res://objects/characters/player/player.tscn" type="PackedScene" id=2]
+[ext_resource path="res://user_interface/heads_up_display/heads_up_display.tscn" type="PackedScene" id=3]
+[ext_resource path="res://general/Counter.cs" type="Script" id=4]
+[ext_resource path="res://game/EnemySpawner.cs" type="Script" id=5]
+[ext_resource path="res://game/background.png" type="Texture" id=6]
+[ext_resource path="res://user_interface/game_over/game_over.tscn" type="PackedScene" id=7]
+[ext_resource path="res://general/PressedInput.cs" type="Script" id=8]
+[ext_resource path="res://game/Game.cs" type="Script" id=9]
+[ext_resource path="res://game/game.wav" type="AudioStream" id=10]
+
+[node name="Game" type="Node"]
+script = ExtResource( 9 )
+_introScenePath = "res://intro/intro.tscn"
+
+[node name="Background" type="Sprite" parent="."]
+texture = ExtResource( 6 )
+centered = false
+
+[node name="Player" parent="." instance=ExtResource( 2 )]
+position = Vector2( 100, 540 )
+
+[node name="EnemySpawner" type="Node" parent="."]
+script = ExtResource( 5 )
+_spawnPositionX = 1820.0
+_minSpawnPositionY = 100.0
+_maxSpawnPositionY = 980.0
+_enemies = [ ExtResource( 1 ) ]
+
+[node name="GameTimer" type="Timer" parent="."]
+autostart = true
+
+[node name="EnemyTimer" type="Timer" parent="."]
+wait_time = 2.1
+autostart = true
+
+[node name="Score" type="Node" parent="."]
+unique_name_in_owner = true
+script = ExtResource( 4 )
+
+[node name="Input" type="Node" parent="."]
+script = ExtResource( 8 )
+
+[node name="HeadsUpDisplay" parent="." instance=ExtResource( 3 )]
+
+[node name="GameOver" parent="." instance=ExtResource( 7 )]
+visible = false
+
+[node name="MusicPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 10 )
+autoplay = true
+
+[connection signal="Ended" from="." to="GameTimer" method="stop"]
+[connection signal="Ended" from="." to="GameOver" method="show"]
+[connection signal="Ended" from="." to="MusicPlayer" method="stop"]
+[connection signal="Changed" from="Player/Health" to="." method="OnPlayerHealthChanged"]
+[connection signal="Spawned" from="EnemySpawner" to="." method="OnEnemySpawned"]
+[connection signal="timeout" from="GameTimer" to="Score" method="Add" binds= [ 1 ]]
+[connection signal="timeout" from="EnemyTimer" to="EnemySpawner" method="Spawn"]
+[connection signal="Changed" from="Score" to="HeadsUpDisplay" method="OnScoreChanged"]
+[connection signal="InputReceived" from="Input" to="." method="OnInputReceived"]
+
+[editable path="Player"]

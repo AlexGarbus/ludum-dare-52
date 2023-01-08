@@ -1,0 +1,34 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://objects/characters/character.tscn" type="PackedScene" id=1]
+[ext_resource path="res://objects/characters/enemies/EnemyInput.cs" type="Script" id=2]
+[ext_resource path="res://objects/combat/shots/tripleshot.tres" type="Resource" id=3]
+
+[node name="Enemy" instance=ExtResource( 1 )]
+collision_layer = 2
+collision_mask = 5
+
+[node name="Particles" parent="." index="0"]
+position = Vector2( 32, 0 )
+rotation = -1.5708
+
+[node name="Sprite" parent="." index="1"]
+flip_h = true
+
+[node name="CollisionShape2D" parent="." index="2"]
+modulate = Color( 1, 0, 0, 1 )
+
+[node name="Weapon" parent="." index="3"]
+position = Vector2( -32, 0 )
+_aimDirection = Vector2( -1, 0 )
+_autoShoot = true
+_startShot = ExtResource( 3 )
+_collisionLayer = 8
+
+[node name="Cooldown" parent="Weapon" index="0"]
+wait_time = 2.0
+
+[node name="Input" parent="." index="4"]
+script = ExtResource( 2 )
+
+[editable path="Weapon"]

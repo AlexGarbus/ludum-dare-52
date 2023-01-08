@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://objects/combat/weapon/Weapon.cs" type="Script" id=1]
+[ext_resource path="res://objects/combat/shots/peashot.tres" type="Resource" id=2]
+[ext_resource path="res://objects/combat/weapon/shoot.wav" type="AudioStream" id=3]
+
+[node name="Weapon" type="Position2D"]
+script = ExtResource( 1 )
+_aimDirection = Vector2( 1, 0 )
+_startShot = ExtResource( 2 )
+
+[node name="Cooldown" type="Timer" parent="."]
+unique_name_in_owner = true
+wait_time = 0.5
+one_shot = true
+
+[node name="ShootSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 3 )
+
+[connection signal="ShotFired" from="." to="ShootSound" method="play"]
+[connection signal="timeout" from="Cooldown" to="." method="OnCooldownTimeout"]
