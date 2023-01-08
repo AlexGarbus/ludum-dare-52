@@ -18,6 +18,10 @@ namespace LudumDare52.Objects.Characters
             {
                 _animationPlayer.Play("destroy");
             }
+            else if (current - previous < 0)
+            {
+                _animationPlayer.Play("damage");
+            }
         }
     }
 }
