@@ -19,9 +19,12 @@ namespace LudumDare52.Objects.Characters
             get { return _current; }
             set
             {
-                int previous = _current;
-                _current = Mathf.Clamp(value, 0, _max);
-                EmitSignal(nameof(Changed), _current, previous);
+                if (_current != value)
+                {
+                    int previous = _current;
+                    _current = Mathf.Clamp(value, 0, _max);
+                    EmitSignal(nameof(Changed), _current, previous);
+                }
             }
         }
 
