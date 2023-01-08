@@ -28,7 +28,7 @@ _collisionLayer = 8
 [node name="Cooldown" parent="Weapon" index="0"]
 wait_time = 2.0
 
-[node name="Input" parent="." index="4"]
+[node name="Input" parent="." index="5"]
 script = ExtResource( 2 )
 
 [editable path="Weapon"]

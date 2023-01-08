@@ -9,7 +9,8 @@ namespace LudumDare52.Objects
         [Export]
         private Rect2 _boundsRect;
 
-        public bool Disabled { get; set; } = false;
+        [Export]
+        private bool _disabled = false;
 
         private Node2D _boundedNode;
 
@@ -20,7 +21,7 @@ namespace LudumDare52.Objects
 
         public override void _PhysicsProcess(float delta)
         {
-            if (Engine.EditorHint || Disabled)
+            if (Engine.EditorHint || _disabled)
             {
                 return;
             }
@@ -32,6 +33,10 @@ namespace LudumDare52.Objects
         {
             return Owner is Node2D ? "" : "This Node must be a child of a Node2D!";
         }
+
+        public void Enable() => _disabled = false;
+
+        public void Disable() => _disabled = true;
 
         private Vector2 BoundPosition(Vector2 position)
         {

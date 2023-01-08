@@ -11,10 +11,29 @@ namespace LudumDare52.Objects.Characters
         [Signal]
         delegate void ShootInputReceived();
 
+        [Signal]
+        delegate void InputStarted();
+
+        [Signal]
+        delegate void InputStopped();
+
         [Export(PropertyHint.Range, "0,1000,or_greater")]
         protected float _moveSpeed = 500f;
 
-        protected bool _receivingInput = true;
+        protected bool ReceivingInput
+        {
+            get { return _receivingInput; }
+            set
+            {
+                if ( _receivingInput != value)
+                {
+                    _receivingInput = value;
+                    EmitSignal(_receivingInput ? nameof(InputStarted) : nameof(InputStopped));
+                }
+            }
+        }
+
+        private bool _receivingInput = true;
 
         public override void _PhysicsProcess(float delta)
         {
@@ -31,8 +50,12 @@ namespace LudumDare52.Objects.Characters
             if (_receivingInput && current == 0)
             {
                 EmitSignal(nameof(MoveInputReceived), Vector2.Left * _moveSpeed);
-                _receivingInput = false;
+                ReceivingInput = false;
             }
         }
+
+        public void StartInput() => ReceivingInput = true;
+
+        public void StopInput() => ReceivingInput = false;
     }
 }

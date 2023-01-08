@@ -9,15 +9,19 @@ namespace LudumDare52.Objects.Characters
         private CharacterInput _input;
         private Health _health;
         private Weapon _weapon;
+        private PositionBounds _bounds;
 
         public override void _Ready()
         {
             _input = GetNode<CharacterInput>("%Input");
             _health = GetNode<Health>("%Health");
             _weapon = GetNode<Weapon>("%Weapon");
+            _bounds = GetNode<PositionBounds>("%PositionBounds");
 
             _input.Connect("MoveInputReceived", this, nameof(SetVelocity));
             _input.Connect("ShootInputReceived", _weapon, "Shoot");
+            _input.Connect("InputStarted", _bounds, "Enable");
+            _input.Connect("InputStopped", _bounds, "Disable");
             _health.Connect("Changed", _input, "OnHealthChanged");
         }
     }
