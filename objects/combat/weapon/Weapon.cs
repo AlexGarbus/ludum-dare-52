@@ -34,6 +34,10 @@ namespace LudumDare52.Objects.Combat
             }
         }
 
+        public Shot GetCurrentShot() => _currentShot;
+
+        public void SetCurrentShot(Shot value) => _currentShot = value;
+
         public void Shoot()
         {
             if (!_canShoot)
