@@ -5,7 +5,8 @@
 
 [resource]
 script = ExtResource( 2 )
+title = "Pea Shot"
 _projectile = ExtResource( 1 )
 _projectileAmount = 1
 _projectileSpeed = 650.0
-_spreadDegrees = 90.0
+_spreadDegrees = 0.0

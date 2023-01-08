@@ -8,6 +8,12 @@ namespace LudumDare52.Objects.Combat
         [Signal]
         delegate void ShotFired();
 
+        [Signal]
+        delegate void ShotChanged(Shot shot);
+
+        [Signal]
+        delegate void CooldownEnded();
+
         [Export]
         private readonly Vector2 _aimDirection;
 
@@ -20,6 +26,16 @@ namespace LudumDare52.Objects.Combat
         [Export(PropertyHint.Layers2dPhysics)]
         private readonly uint _collisionLayer;
 
+        private Shot CurrentShot
+        {
+            get { return _currentShot; }
+            set
+            {
+                _currentShot = value;
+                EmitSignal(nameof(ShotChanged), _currentShot);
+            }
+        }
+
         private bool _canShoot = true;
         private Shot _currentShot;
         private Timer _cooldown;
@@ -27,16 +43,16 @@ namespace LudumDare52.Objects.Combat
         public override void _Ready()
         {
             _cooldown = GetNode<Timer>("%Cooldown");
-            _currentShot = _startShot;
+            _currentShot = _startShot; // FIXME: Should use property here, but it causes a crash without printing an error.
             if (_autoShoot)
             {
                 Shoot();
             }
         }
 
-        public Shot GetCurrentShot() => _currentShot;
+        public Shot GetCurrentShot() => CurrentShot;
 
-        public void SetCurrentShot(Shot value) => _currentShot = value;
+        public void SetCurrentShot(Shot value) => CurrentShot = value;
 
         public void Shoot()
         {
@@ -61,6 +77,7 @@ namespace LudumDare52.Objects.Combat
         public void OnCooldownTimeout()
         {
             _canShoot = true;
+            EmitSignal(nameof(CooldownEnded));
             if (_autoShoot)
             {
                 Shoot();
@@ -76,7 +93,7 @@ namespace LudumDare52.Objects.Combat
             }
             else if (current - previous < 0)
             {
-                _currentShot = _startShot;
+                CurrentShot = _startShot;
             }
         }
     }

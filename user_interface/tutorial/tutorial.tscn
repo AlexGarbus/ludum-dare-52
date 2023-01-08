@@ -1,0 +1,34 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://user_interface/tutorial/Tutorial.cs" type="Script" id=1]
+[ext_resource path="res://general/PressedInput.cs" type="Script" id=2]
+
+[node name="Tutorial" type="Popup"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+popup_exclusive = true
+script = ExtResource( 1 )
+
+[node name="Label" type="Label" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+text = "Don't know how to play? One step ahead of you! Here's the enclosed instruction text!
+
+Arrows/WASD & Joysticks/D-pad = Move
+Z/Space & Gamepad Buttons = Shoot
+
+Survive the onslaught of enemy shots as they head towards you!
+If an enemy is defeated, you can harvest it to obtain their shot!
+But be careful: you will lose a harvested shot if you get hit!
+
+Simple enough? Good! Now get your head in the game!
+
+(Press any key/button to head into the action.)"
+align = 1
+valign = 1
+
+[node name="Input" type="Node" parent="."]
+pause_mode = 2
+script = ExtResource( 2 )
+
+[connection signal="InputReceived" from="Input" to="." method="hide"]

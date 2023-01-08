@@ -5,22 +5,7 @@ namespace LudumDare52.Objects.Characters
 {
     public class PlayerInput : CharacterInput
     {
-        private Vector2 MoveVector
-        {
-            get { return _moveVector; }
-            set
-            {
-                if (value != _moveVector)
-                {
-                    _moveVector = value;
-                    EmitSignal("MoveInputReceived", _moveVector);
-                }
-            }
-        }
-
-        private Vector2 _moveVector = Vector2.Zero;
-
-        public override void OnPhysicsProcess(float delta)
+        public override void CombatInput(float delta)
         {
             MoveVector = new Vector2(
                     Input.GetAxis("move_left", "move_right"),
@@ -30,7 +15,7 @@ namespace LudumDare52.Objects.Characters
 
         public override void _UnhandledInput(InputEvent @event)
         {
-            if (@event.IsActionPressed("action"))
+            if (@event.IsActionPressed("action") && InputState == State.COMBAT)
             {
                 EmitSignal("ShootInputReceived");
             }

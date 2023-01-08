@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://objects/physics_area.tscn" type="PackedScene" id=1]
 [ext_resource path="res://objects/characters/lettuce.png" type="Texture" id=2]
@@ -11,7 +11,8 @@
 [ext_resource path="res://objects/characters/damage.wav" type="AudioStream" id=9]
 [ext_resource path="res://objects/characters/thrust_particles.tscn" type="PackedScene" id=10]
 [ext_resource path="res://objects/characters/components/CharacterParticles.cs" type="Script" id=11]
-[ext_resource path="res://objects/characters/CharacterVisibility.cs" type="Script" id=12]
+[ext_resource path="res://objects/characters/components/CharacterVisibility.cs" type="Script" id=12]
+[ext_resource path="res://objects/PositionBounds.cs" type="Script" id=13]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 32.0
@@ -41,6 +42,18 @@ tracks/1/keys = {
 "transitions": PoolRealArray( 1 ),
 "update": 0,
 "values": [ Color( 1, 1, 1, 1 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("../Sprite:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ) ]
 }
 
 [sub_resource type="Animation" id=4]
@@ -99,6 +112,36 @@ tracks/1/keys = {
 "values": [ Color( 0.407843, 0.407843, 0.407843, 1 ) ]
 }
 
+[sub_resource type="Animation" id=5]
+resource_name = "harvest"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/path = NodePath("../Sprite:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ), Vector2( 1e-05, 1e-05 ) ]
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath("..")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.5 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "queue_free"
+} ]
+}
+
 [node name="Character" instance=ExtResource( 1 )]
 script = ExtResource( 3 )
 
@@ -123,6 +166,12 @@ script = ExtResource( 12 )
 [node name="Input" type="Node" parent="." index="5"]
 unique_name_in_owner = true
 
+[node name="EnterTimer" type="Timer" parent="Input" index="0"]
+unique_name_in_owner = true
+wait_time = 0.5
+one_shot = true
+autostart = true
+
 [node name="Health" type="Node" parent="." index="6"]
 unique_name_in_owner = true
 script = ExtResource( 4 )
@@ -136,6 +185,7 @@ unique_name_in_owner = true
 anims/RESET = SubResource( 2 )
 anims/damage = SubResource( 4 )
 anims/destroy = SubResource( 3 )
+anims/harvest = SubResource( 5 )
 
 [node name="Sound" type="Node" parent="." index="8"]
 script = ExtResource( 7 )
@@ -147,6 +197,12 @@ stream = ExtResource( 9 )
 [node name="DestroySound" type="AudioStreamPlayer" parent="Sound" index="1"]
 unique_name_in_owner = true
 stream = ExtResource( 8 )
+
+[node name="PositionBounds" type="Node" parent="." index="9"]
+unique_name_in_owner = true
+script = ExtResource( 13 )
+_boundsRect = Rect2( 100, 100, 1720, 880 )
+_disabled = true
 
 [connection signal="area_entered" from="." to="Health" method="OnAreaEntered"]
 [connection signal="Changed" from="Health" to="Particles" method="OnHealthChanged"]

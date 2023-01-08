@@ -13,6 +13,9 @@ namespace LudumDare52.Game
         private readonly int _maxEnemies = 10;
 
         [Export]
+        private readonly bool _spawnOnReady = true;
+
+        [Export]
         private readonly float _spawnPositionX = 1920f;
 
         [Export]
@@ -23,6 +26,11 @@ namespace LudumDare52.Game
 
         [Export]
         private readonly PackedScene[] _enemies;
+
+        public override void _Ready()
+        {
+            Spawn();
+        }
 
         public void Spawn()
         {

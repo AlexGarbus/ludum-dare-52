@@ -11,27 +11,108 @@ namespace LudumDare52.Objects.Characters
         [Signal]
         delegate void ShootInputReceived();
 
+        [Signal]
+        delegate void EnterInputStarted();
+
+        [Signal]
+        delegate void CombatInputStarted();
+
+        [Signal]
+        delegate void ExitInputStarted();
+
+        protected enum State
+        {
+            ENTER,
+            COMBAT,
+            EXIT
+        }
+
         [Export(PropertyHint.Range, "0,1000,or_greater")]
         protected float _moveSpeed = 500f;
 
-        protected bool _receivingInput = true;
+        [Export]
+        private Vector2 _enterDirection;
 
-        public override void _PhysicsProcess(float delta)
+        protected State InputState
         {
-            if (_receivingInput)
+            get { return _inputState; }
+            set
             {
-                OnPhysicsProcess(delta);
+                if ( _inputState != value)
+                {
+                    _inputState = value;
+                    EmitStateSignal(_inputState);
+                }
             }
         }
 
-        public abstract void OnPhysicsProcess(float delta);
+        protected Vector2 MoveVector
+        {
+            get { return _moveVector; }
+            set
+            {
+                if (value != _moveVector)
+                {
+                    _moveVector = value;
+                    EmitSignal("MoveInputReceived", _moveVector);
+                }
+            }
+        }
+
+        private Vector2 _moveVector = Vector2.Zero;
+
+        private State _inputState = State.ENTER;
+
+        public override void _Ready()
+        {
+            GetNode<Timer>("%EnterTimer").Connect("timeout", this, nameof(OnEnterTimerTimeout));
+        }
+
+        public override void _PhysicsProcess(float delta)
+        {
+            switch (_inputState)
+            {
+                case State.ENTER:
+                    MoveVector = _enterDirection * _moveSpeed;
+                    break;
+                case State.COMBAT:
+                    CombatInput(delta);
+                    break;
+                case State.EXIT:
+                    MoveVector = Vector2.Left * _moveSpeed;
+                    break;
+            }
+        }
+
+        public virtual void CombatInput(float delta) { }
 
         public void OnHealthChanged(int current, int previous)
         {
-            if (_receivingInput && current == 0)
+            if (_inputState == State.COMBAT && current == 0)
             {
-                EmitSignal(nameof(MoveInputReceived), Vector2.Left * _moveSpeed);
-                _receivingInput = false;
+                InputState = State.EXIT;
+            }
+        }
+
+        public void OnEnterTimerTimeout()
+        {
+            MoveVector = Vector2.Zero;
+            InputState = State.COMBAT;
+        }
+
+        private void EmitStateSignal(State state)
+        {
+            switch (state)
+            {
+                case State.ENTER:
+                    EmitSignal(nameof(EnterInputStarted));
+                    break;
+                case State.COMBAT:
+                    EmitSignal(nameof(CombatInputStarted));
+                    break;
+                case State.EXIT:
+                    EmitSignal(nameof(ExitInputStarted));
+                    break;
             }
         }
     }
