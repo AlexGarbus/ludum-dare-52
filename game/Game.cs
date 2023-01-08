@@ -20,6 +20,11 @@ namespace LudumDare52.Game
         private bool _exited = false;
         private State _state = State.RUNNING;
 
+        public override void _Ready()
+        {
+            GD.Randomize();
+        }
+
         public void OnInputReceived()
         {
             if (_state != State.OVER || _exited)
