@@ -58,13 +58,13 @@ script = ExtResource( 8 )
 
 [node name="MusicPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 10 )
-autoplay = true
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 layer = 100
 
 [node name="HeadsUpDisplay" parent="CanvasLayer" instance=ExtResource( 3 )]
 unique_name_in_owner = true
+visible = false
 
 [node name="GameOver" parent="CanvasLayer" instance=ExtResource( 7 )]
 visible = false
@@ -84,6 +84,8 @@ visible = false
 [connection signal="timeout" from="Timers/EndTimer" to="Background/AnimationPlayer" method="play" binds= [ "hide" ]]
 [connection signal="Changed" from="Score" to="CanvasLayer/HeadsUpDisplay" method="OnScoreChanged"]
 [connection signal="InputReceived" from="Input" to="." method="OnInputReceived"]
+[connection signal="popup_hide" from="CanvasLayer/Tutorial" to="MusicPlayer" method="play"]
+[connection signal="popup_hide" from="CanvasLayer/Tutorial" to="CanvasLayer/HeadsUpDisplay" method="show"]
 
 [editable path="Background"]
 [editable path="Player"]
