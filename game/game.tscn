@@ -23,9 +23,9 @@ position = Vector2( 100, 540 )
 
 [node name="EnemySpawner" type="Node" parent="."]
 script = ExtResource( 5 )
-_spawnPositionX = 1900.0
-_minSpawnPositionY = 64.0
-_maxSpawnPositionY = 1016.0
+_spawnPositionX = 1820.0
+_minSpawnPositionY = 100.0
+_maxSpawnPositionY = 980.0
 _enemies = [ ExtResource( 1 ) ]
 
 [node name="GameTimer" type="Timer" parent="."]
