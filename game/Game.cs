@@ -1,4 +1,5 @@
 using LudumDare52.Objects.Characters;
+using LudumDare52.Saving;
 using Godot;
 using System;
 
@@ -25,10 +26,12 @@ namespace LudumDare52.Game
         private State _state = State.RUNNING;
 
         private Counter _score;
+        private Timer _endTimer;
 
         public override void _Ready()
         {
             _score = GetNode<Counter>("%Score");
+            _endTimer = GetNode<Timer>("%EndTimer");
             GD.Randomize();
         }
 
@@ -47,7 +50,7 @@ namespace LudumDare52.Game
         {
             if (current == 0)
             {
-                EndGame();
+                _endTimer.Start();
             }
         }
 
@@ -64,10 +67,20 @@ namespace LudumDare52.Game
             enemy.GetNode<Health>("%Health").Connect("Changed", this, nameof(OnEnemyHealthChanged));
         }
 
-        private void EndGame()
+        public void EndGame()
         {
             _state = State.OVER;
+            EvaluateScore();
             EmitSignal(nameof(Ended));
+        }
+
+        private void EvaluateScore()
+        {
+            int bestScore = SaveLoad.Load();
+            if (_score.Count > bestScore)
+            {
+                SaveLoad.Save(_score.Count);
+            }
         }
     }
 }
