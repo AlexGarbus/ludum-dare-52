@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://objects/characters/enemies/inherited/enemy_pink.tscn" type="PackedScene" id=1]
 [ext_resource path="res://objects/characters/player/player.tscn" type="PackedScene" id=2]
@@ -13,6 +13,7 @@
 [ext_resource path="res://objects/characters/enemies/inherited/enemy_yellow.tscn" type="PackedScene" id=11]
 [ext_resource path="res://objects/characters/enemies/inherited/enemy_blue.tscn" type="PackedScene" id=12]
 [ext_resource path="res://objects/characters/enemies/inherited/enemy_red.tscn" type="PackedScene" id=13]
+[ext_resource path="res://game/EnemyTimer.cs" type="Script" id=14]
 
 [node name="Game" type="Node"]
 script = ExtResource( 9 )
@@ -37,8 +38,11 @@ _enemies = [ ExtResource( 12 ), ExtResource( 1 ), ExtResource( 13 ), ExtResource
 autostart = true
 
 [node name="EnemyTimer" type="Timer" parent="Timers"]
-wait_time = 5.1
+wait_time = 10.1
 autostart = true
+script = ExtResource( 14 )
+_minWaitTime = 3.1
+_waitTimeInterval = 0.25
 
 [node name="EndTimer" type="Timer" parent="Timers"]
 unique_name_in_owner = true
