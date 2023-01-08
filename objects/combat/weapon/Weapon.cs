@@ -50,7 +50,7 @@ namespace LudumDare52.Objects.Combat
             {
                 projectile.GlobalPosition = GlobalPosition;
                 projectile.CollisionLayer = _collisionLayer;
-                AddChild(projectile);
+                GetTree().Root.AddChild(projectile);
             }
 
             _canShoot = false;
