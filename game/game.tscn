@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://objects/characters/enemies/inherited/enemy_pink.tscn" type="PackedScene" id=1]
 [ext_resource path="res://objects/characters/player/player.tscn" type="PackedScene" id=2]
@@ -14,6 +14,7 @@
 [ext_resource path="res://objects/characters/enemies/inherited/enemy_blue.tscn" type="PackedScene" id=12]
 [ext_resource path="res://objects/characters/enemies/inherited/enemy_red.tscn" type="PackedScene" id=13]
 [ext_resource path="res://game/EnemyTimer.cs" type="Script" id=14]
+[ext_resource path="res://user_interface/tutorial/tutorial.tscn" type="PackedScene" id=15]
 
 [node name="Game" type="Node"]
 script = ExtResource( 9 )
@@ -55,27 +56,33 @@ script = ExtResource( 4 )
 [node name="Input" type="Node" parent="."]
 script = ExtResource( 8 )
 
-[node name="HeadsUpDisplay" parent="." instance=ExtResource( 3 )]
-unique_name_in_owner = true
-
-[node name="GameOver" parent="." instance=ExtResource( 7 )]
-visible = false
-
 [node name="MusicPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 10 )
 autoplay = true
 
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = 100
+
+[node name="HeadsUpDisplay" parent="CanvasLayer" instance=ExtResource( 3 )]
+unique_name_in_owner = true
+
+[node name="GameOver" parent="CanvasLayer" instance=ExtResource( 7 )]
+visible = false
+
+[node name="Tutorial" parent="CanvasLayer" instance=ExtResource( 15 )]
+
 [connection signal="Ended" from="." to="Timers/GameTimer" method="stop"]
 [connection signal="Ended" from="." to="Timers/EnemyTimer" method="stop"]
-[connection signal="Ended" from="." to="GameOver" method="show"]
 [connection signal="Ended" from="." to="MusicPlayer" method="stop"]
+[connection signal="Ended" from="." to="CanvasLayer/GameOver" method="show"]
+[connection signal="ShotChanged" from="Player/Weapon" to="CanvasLayer/HeadsUpDisplay" method="OnWeaponShotChanged"]
 [connection signal="Changed" from="Player/Health" to="." method="OnPlayerHealthChanged"]
 [connection signal="Spawned" from="EnemySpawner" to="." method="OnEnemySpawned"]
 [connection signal="timeout" from="Timers/GameTimer" to="Score" method="Add" binds= [ 1 ]]
 [connection signal="timeout" from="Timers/EnemyTimer" to="EnemySpawner" method="Spawn"]
 [connection signal="timeout" from="Timers/EndTimer" to="." method="EndGame"]
 [connection signal="timeout" from="Timers/EndTimer" to="Background/AnimationPlayer" method="play" binds= [ "hide" ]]
-[connection signal="Changed" from="Score" to="HeadsUpDisplay" method="OnScoreChanged"]
+[connection signal="Changed" from="Score" to="CanvasLayer/HeadsUpDisplay" method="OnScoreChanged"]
 [connection signal="InputReceived" from="Input" to="." method="OnInputReceived"]
 
 [editable path="Background"]

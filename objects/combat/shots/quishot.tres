@@ -5,6 +5,7 @@
 
 [resource]
 script = ExtResource( 2 )
+title = "Qui Shot"
 _projectile = ExtResource( 1 )
 _projectileAmount = 5
 _projectileSpeed = 750.0

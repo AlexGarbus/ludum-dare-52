@@ -6,6 +6,9 @@ namespace LudumDare52.Objects.Combat
     public class Shot : Resource
     {
         [Export]
+        private readonly string title = "Shot";
+
+        [Export]
         private readonly PackedScene _projectile;
 
         [Export(PropertyHint.Range, "1,3,or_greater")]
@@ -16,6 +19,8 @@ namespace LudumDare52.Objects.Combat
 
         [Export(PropertyHint.Range, "0,180")]
         private readonly float _spreadDegrees = 90f;
+
+        public string GetTitle() => title;
 
         public PhysicsArea[] Instance(Vector2 aimDirection)
         {
