@@ -16,7 +16,7 @@ namespace LudumDare52.Objects.Combat
 
         private void OnAreaEntered(Area2D area)
         {
-            if (area is Character character)
+            if (area is Character character && character.GetNode<Health>("%Health").Current == 0)
             {
                 EmitSignal(nameof(ShotHarvested), character.GetNode<Weapon>("%Weapon").GetCurrentShot());
                 character.QueueFree();
