@@ -8,13 +8,17 @@
 collision_layer = 2
 collision_mask = 5
 
-[node name="Sprite" parent="." index="0"]
+[node name="Particles" parent="." index="0"]
+position = Vector2( 32, 0 )
+rotation = -1.5708
+
+[node name="Sprite" parent="." index="1"]
 flip_h = true
 
-[node name="CollisionShape2D" parent="." index="1"]
+[node name="CollisionShape2D" parent="." index="2"]
 modulate = Color( 1, 0, 0, 1 )
 
-[node name="Weapon" parent="." index="2"]
+[node name="Weapon" parent="." index="3"]
 position = Vector2( -32, 0 )
 _aimDirection = Vector2( -1, 0 )
 _autoShoot = true
@@ -24,7 +28,7 @@ _collisionLayer = 8
 [node name="Cooldown" parent="Weapon" index="0"]
 wait_time = 2.0
 
-[node name="Input" parent="." index="3"]
+[node name="Input" parent="." index="4"]
 script = ExtResource( 2 )
 
 [editable path="Weapon"]
