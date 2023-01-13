@@ -12,13 +12,13 @@ namespace LudumDare52.Objects.Characters
         delegate void ShootInputReceived();
 
         [Signal]
-        delegate void EnterInputStarted();
+        delegate void EnterInputStarted(); // TODO: Rename to EnterStarted.
 
         [Signal]
-        delegate void CombatInputStarted();
+        delegate void CombatInputStarted(); // TODO: Rename to CombatStarted.
 
         [Signal]
-        delegate void ExitInputStarted();
+        delegate void ExitInputStarted(); // TODO: Rename to ExitStarted.
 
         protected enum State
         {
@@ -60,7 +60,6 @@ namespace LudumDare52.Objects.Characters
         }
 
         private Vector2 _moveVector = Vector2.Zero;
-
         private State _inputState = State.ENTER;
 
         public override void _Ready()
@@ -73,13 +72,13 @@ namespace LudumDare52.Objects.Characters
             switch (_inputState)
             {
                 case State.ENTER:
-                    MoveVector = _enterDirection * _moveSpeed;
+                    MoveVector = _enterDirection * _moveSpeed; // Move to _Ready.
                     break;
                 case State.COMBAT:
                     CombatInput(delta);
                     break;
                 case State.EXIT:
-                    MoveVector = Vector2.Left * _moveSpeed;
+                    MoveVector = Vector2.Left * _moveSpeed; // Move to OnHealthChanged.
                     break;
             }
         }

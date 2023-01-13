@@ -23,10 +23,10 @@ namespace LudumDare52.Game
         [Export(PropertyHint.Range, "1,100,or_greater")]
         private readonly int _enemyScore = 100;
 
-        private bool _exited = false;
+        private bool _exited = false; // TODO: Share with Intro.
         private State _state = State.RUNNING;
 
-        private Counter _score;
+        private Counter _score; // TODO: Move to GameScore node.
         private Timer _endTimer;
 
         public override void _Ready()
@@ -56,7 +56,7 @@ namespace LudumDare52.Game
             }
         }
 
-        public void OnEnemyHealthChanged(int current, int previous)
+        public void OnEnemyHealthChanged(int current, int previous)  // TODO: Move to GameScore node.
         {
             if (current == 0)
             {
@@ -64,7 +64,7 @@ namespace LudumDare52.Game
             }
         }
 
-        public void OnEnemySpawned(Character enemy)
+        public void OnEnemySpawned(Character enemy)  // TODO: Move to GameScore node.
         {
             enemy.GetNode<Health>("%Health").Connect("Changed", this, nameof(OnEnemyHealthChanged));
         }
@@ -76,7 +76,7 @@ namespace LudumDare52.Game
             EmitSignal(nameof(Ended));
         }
 
-        private void EvaluateScore()
+        private void EvaluateScore()  // TODO: Move to GameScore node.
         {
             int bestScore = SaveLoad.Load();
             if (_score.Count > bestScore)
@@ -85,7 +85,7 @@ namespace LudumDare52.Game
             }
         }
 
-        private void InitializeUserInterface()
+        private void InitializeUserInterface() // TODO: Pass Player and GameScore into HeadsUpDisplay.Initialize() instead.
         {
             HealthDisplay _healthDisplay = GetNode<HeadsUpDisplay>("%HeadsUpDisplay").GetNode<HealthDisplay>("%HealthDisplay");
             Health _playerHealth = GetNode<Character>("%Player").GetNode<Health>("%Health");

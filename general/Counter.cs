@@ -3,6 +3,7 @@ using System;
 
 namespace LudumDare52
 {
+    [Obsolete("Use LudumDare52.Game.GameScore node instead.")]
     public class Counter : Node
     {
         [Signal]

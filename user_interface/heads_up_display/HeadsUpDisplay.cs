@@ -12,12 +12,15 @@ namespace LudumDare52.UserInterface
 
         private Label _scoreLabel;
         private Label _shotLabel;
+        // TODO: private HealthDisplay _healthDisplay;
 
         public override void _Ready()
         {
             _scoreLabel = GetNode<Label>("%Score");
             _shotLabel = GetNode<Label>("%Shot");
         }
+
+        // TODO: Initialize(Character player, GameScore score).
 
         public void OnScoreChanged(int value)
         {

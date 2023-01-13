@@ -8,9 +8,9 @@ namespace LudumDare52
         [Export(PropertyHint.File, "*.tscn")]
         private readonly string _gameScenePath;
 
-        private AnimationPlayer _animationPlayer;
+        private bool _exited = false; // TODO: Share with Game
 
-        private bool _exited = false;
+        private AnimationPlayer _animationPlayer;
 
         public override void _Ready()
         {

@@ -20,7 +20,6 @@ namespace LudumDare52
         {
             InputEventKey inputEventKey = @event as InputEventKey;
             InputEventJoypadButton inputEventJoypadButton = @event as InputEventJoypadButton;
-
             return inputEventKey != null && inputEventKey.Pressed && !inputEventKey.IsEcho()
                 || inputEventJoypadButton != null && inputEventJoypadButton.Pressed;
         }

@@ -66,7 +66,7 @@ namespace LudumDare52.Objects.Combat
             {
                 projectile.GlobalPosition = GlobalPosition;
                 projectile.CollisionLayer = _collisionLayer;
-                GetTree().Root.GetNode("Game").AddChild(projectile);
+                GetTree().Root.GetNode("Game").AddChild(projectile); // FIXME: Doesn't work outside of Game scene.
             }
 
             _canShoot = false;
