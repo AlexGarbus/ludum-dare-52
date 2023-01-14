@@ -3,7 +3,7 @@
 [ext_resource path="res://objects/characters/enemies/inherited/enemy_pink.tscn" type="PackedScene" id=1]
 [ext_resource path="res://objects/characters/player/player.tscn" type="PackedScene" id=2]
 [ext_resource path="res://user_interface/heads_up_display/heads_up_display.tscn" type="PackedScene" id=3]
-[ext_resource path="res://general/Counter.cs" type="Script" id=4]
+[ext_resource path="res://game/GameScore.cs" type="Script" id=4]
 [ext_resource path="res://game/EnemySpawner.cs" type="Script" id=5]
 [ext_resource path="res://game/background/background.tscn" type="PackedScene" id=6]
 [ext_resource path="res://user_interface/game_over/game_over.tscn" type="PackedScene" id=7]
@@ -110,7 +110,6 @@ unique_name_in_owner = true
 one_shot = true
 
 [node name="Score" type="Node" parent="."]
-unique_name_in_owner = true
 script = ExtResource( 4 )
 
 [node name="Input" type="Node" parent="."]
@@ -147,9 +146,10 @@ anims/show = SubResource( 3 )
 [connection signal="Ended" from="." to="CanvasLayer/GameOver" method="show"]
 [connection signal="Ended" from="." to="Foreground" method="show"]
 [connection signal="Ended" from="." to="Foreground/AnimationPlayer" method="play" binds= [ "show" ]]
+[connection signal="Ended" from="." to="Score" method="EvaluateScore"]
 [connection signal="ShotChanged" from="Player/Weapon" to="CanvasLayer/HeadsUpDisplay" method="OnWeaponShotChanged"]
 [connection signal="Changed" from="Player/Health" to="." method="OnPlayerHealthChanged"]
-[connection signal="Spawned" from="EnemySpawner" to="." method="OnEnemySpawned"]
+[connection signal="Spawned" from="EnemySpawner" to="Score" method="OnEnemySpawned"]
 [connection signal="timeout" from="Timers/GameTimer" to="Score" method="Add" binds= [ 1 ]]
 [connection signal="timeout" from="Timers/EnemyTimer" to="EnemySpawner" method="Spawn"]
 [connection signal="timeout" from="Timers/EndTimer" to="." method="EndGame"]
