@@ -64,9 +64,7 @@ namespace LudumDare52.Objects.Combat
             PhysicsArea[] projectiles = _currentShot.Instance(_aimDirection);
             foreach (PhysicsArea projectile in projectiles)
             {
-                projectile.GlobalPosition = GlobalPosition;
-                projectile.CollisionLayer = _collisionLayer;
-                GetTree().Root.GetNode("Game").AddChild(projectile); // FIXME: Doesn't work outside of Game scene.
+                InitializeProjectile(projectile);
             }
 
             _canShoot = false;
@@ -95,6 +93,13 @@ namespace LudumDare52.Objects.Combat
             {
                 CurrentShot = _startShot;
             }
+        }
+
+        private void InitializeProjectile(PhysicsArea projectile)
+        {
+            projectile.GlobalPosition = GlobalPosition;
+            projectile.CollisionLayer = _collisionLayer;
+            (GetTree().Root.GetNodeOrNull("Game") ?? GetTree().Root).AddChild(projectile);
         }
     }
 }
