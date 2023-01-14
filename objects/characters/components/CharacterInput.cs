@@ -12,13 +12,13 @@ namespace LudumDare52.Objects.Characters
         delegate void ShootInputReceived();
 
         [Signal]
-        delegate void EnterInputStarted(); // TODO: Rename to EnterStarted.
+        delegate void EnterStarted();
 
         [Signal]
-        delegate void CombatInputStarted(); // TODO: Rename to CombatStarted.
+        delegate void CombatStarted();
 
         [Signal]
-        delegate void ExitInputStarted(); // TODO: Rename to ExitStarted.
+        delegate void ExitStarted();
 
         protected enum State
         {
@@ -104,13 +104,13 @@ namespace LudumDare52.Objects.Characters
             switch (state)
             {
                 case State.ENTER:
-                    EmitSignal(nameof(EnterInputStarted));
+                    EmitSignal(nameof(EnterStarted));
                     break;
                 case State.COMBAT:
-                    EmitSignal(nameof(CombatInputStarted));
+                    EmitSignal(nameof(CombatStarted));
                     break;
                 case State.EXIT:
-                    EmitSignal(nameof(ExitInputStarted));
+                    EmitSignal(nameof(ExitStarted));
                     break;
             }
         }
