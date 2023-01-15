@@ -28,7 +28,8 @@ namespace LudumDare52.Game
         public override void _Ready()
         {
             _endTimer = GetNode<Timer>("%EndTimer");
-            InitializeUserInterface();
+            Health playerHealth = GetNode<Character>("%Player").GetNode<Health>("%Health");
+            playerHealth.Connect("Changed", this, nameof(OnPlayerHealthChanged));
             GD.Randomize();
         }
 
@@ -55,13 +56,6 @@ namespace LudumDare52.Game
         {
             _state = State.OVER;
             EmitSignal(nameof(Ended));
-        }
-
-        private void InitializeUserInterface() // TODO: Pass Player and GameScore into HeadsUpDisplay.Initialize() instead.
-        {
-            HealthDisplay _healthDisplay = GetNode<HeadsUpDisplay>("%HeadsUpDisplay").GetNode<HealthDisplay>("%HealthDisplay");
-            Health _playerHealth = GetNode<Character>("%Player").GetNode<Health>("%Health");
-            _healthDisplay.Initialize(_playerHealth);
         }
     }
 }
