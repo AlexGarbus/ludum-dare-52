@@ -9,9 +9,9 @@ namespace LudumDare52
         [Signal]
         delegate void Changed(int count);
 
-        public int Count 
+        public int Count
         {
-            get { return _count; } 
+            get { return _count; }
             private set
             {
                 _count = value;

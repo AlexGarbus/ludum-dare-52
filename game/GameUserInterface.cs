@@ -1,7 +1,6 @@
+using Godot;
 using LudumDare52.Objects.Characters;
 using LudumDare52.UserInterface;
-using Godot;
-using System;
 
 namespace LudumDare52.Game
 {

@@ -1,6 +1,4 @@
 using LudumDare52.Objects.Combat;
-using Godot;
-using System;
 
 namespace LudumDare52.Objects.Characters
 {

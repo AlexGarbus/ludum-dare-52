@@ -1,5 +1,4 @@
 using Godot;
-using System;
 
 namespace LudumDare52.Objects.Characters
 {
@@ -38,7 +37,7 @@ namespace LudumDare52.Objects.Characters
             get { return _inputState; }
             set
             {
-                if ( _inputState != value)
+                if (_inputState != value)
                 {
                     _inputState = value;
                     EmitStateSignal(_inputState);

@@ -1,6 +1,4 @@
 using Godot;
-using Godot.Collections;
-using System;
 
 namespace LudumDare52.Objects.Characters
 {
