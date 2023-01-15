@@ -20,7 +20,7 @@ namespace LudumDare52.Game
         [Export(PropertyHint.File, "*.tscn")]
         private readonly string _introScenePath;
 
-        private bool _exited = false; // TODO: Share with Intro.
+        private bool _exited = false;
         private State _state = State.RUNNING;
 
         private Timer _endTimer;
