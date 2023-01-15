@@ -24,7 +24,9 @@ namespace LudumDare52.UserInterface
 
         public void Initialize(Character player, GameScore score)
         {
-            player.GetNode<Weapon>("%Weapon").Connect("ShotChanged", this, nameof(OnWeaponShotChanged));
+            Weapon weapon = player.GetNode<Weapon>("%Weapon");
+            OnWeaponShotChanged(weapon.GetCurrentShot());
+            weapon.Connect("ShotChanged", this, nameof(OnWeaponShotChanged));
             _healthDisplay.Initialize(player.GetNode<Health>("%Health"));
             score.Connect("Changed", this, nameof(OnScoreChanged));
         }
