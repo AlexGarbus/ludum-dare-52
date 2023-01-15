@@ -1,5 +1,4 @@
 using Godot;
-using System;
 
 namespace LudumDare52
 {
@@ -10,8 +9,6 @@ namespace LudumDare52
 
         private AnimationPlayer _animationPlayer;
 
-        private bool _exited = false;
-
         public override void _Ready()
         {
             _animationPlayer = GetNode<AnimationPlayer>("%AnimationPlayer");
@@ -19,13 +16,12 @@ namespace LudumDare52
 
         public void OnInputReceived()
         {
-            if (_animationPlayer.IsPlaying() || _exited)
+            if (_animationPlayer.IsPlaying())
             {
                 return;
             }
 
             _animationPlayer.Play("exit");
-            _exited = true;
         }
 
         public void OnAnimationFinished(string anim_name)

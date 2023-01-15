@@ -1,7 +1,7 @@
-using LudumDare52.Game;
-using LudumDare52.Objects.Combat;
 using Godot;
-using System;
+using LudumDare52.Game;
+using LudumDare52.Objects.Characters;
+using LudumDare52.Objects.Combat;
 
 namespace LudumDare52.UserInterface
 {
@@ -12,19 +12,30 @@ namespace LudumDare52.UserInterface
 
         private Label _scoreLabel;
         private Label _shotLabel;
+        private HealthDisplay _healthDisplay;
 
         public override void _Ready()
         {
             _scoreLabel = GetNode<Label>("%Score");
             _shotLabel = GetNode<Label>("%Shot");
+            _healthDisplay = GetNode<HealthDisplay>("%HealthDisplay");
         }
 
-        public void OnScoreChanged(int value)
+        public void Initialize(Character player, GameScore score)
         {
-            _scoreLabel.Text = _scorePrefix + value;
+            Weapon weapon = player.GetNode<Weapon>("%Weapon");
+            OnWeaponShotChanged(weapon.GetCurrentShot());
+            weapon.Connect("ShotChanged", this, nameof(OnWeaponShotChanged));
+            _healthDisplay.Initialize(player.GetNode<Health>("%Health"));
+            score.Connect("Changed", this, nameof(OnScoreChanged));
         }
 
-        public void OnWeaponShotChanged(Shot shot)
+        private void OnScoreChanged(int current)
+        {
+            _scoreLabel.Text = _scorePrefix + current;
+        }
+
+        private void OnWeaponShotChanged(Shot shot)
         {
             _shotLabel.Text = shot.GetTitle();
         }

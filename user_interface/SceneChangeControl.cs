@@ -3,7 +3,7 @@ using System;
 
 namespace LudumDare52.UserInterface
 {
-    // TODO: Scrap?
+    [Obsolete("No use for this script.")]
     public class SceneChangeControl : Control
     {
         [Export(PropertyHint.File, "*.tscn")]

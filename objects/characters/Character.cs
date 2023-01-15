@@ -1,6 +1,4 @@
 using LudumDare52.Objects.Combat;
-using Godot;
-using System;
 
 namespace LudumDare52.Objects.Characters
 {
@@ -20,8 +18,8 @@ namespace LudumDare52.Objects.Characters
 
             _input.Connect("MoveInputReceived", this, nameof(SetVelocity));
             _input.Connect("ShootInputReceived", _weapon, "Shoot");
-            _input.Connect("CombatInputStarted", _bounds, "Enable");
-            _input.Connect("ExitInputStarted", _bounds, "Disable");
+            _input.Connect("CombatStarted", _bounds, "Enable");
+            _input.Connect("ExitStarted", _bounds, "Disable");
             _health.Connect("Changed", _input, "OnHealthChanged");
         }
     }

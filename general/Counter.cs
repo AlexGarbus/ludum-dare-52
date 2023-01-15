@@ -3,14 +3,15 @@ using System;
 
 namespace LudumDare52
 {
+    [Obsolete("Use LudumDare52.Game.GameScore node instead.")]
     public class Counter : Node
     {
         [Signal]
         delegate void Changed(int count);
 
-        public int Count 
+        public int Count
         {
-            get { return _count; } 
+            get { return _count; }
             private set
             {
                 _count = value;

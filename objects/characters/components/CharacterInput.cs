@@ -1,5 +1,4 @@
 using Godot;
-using System;
 
 namespace LudumDare52.Objects.Characters
 {
@@ -12,13 +11,13 @@ namespace LudumDare52.Objects.Characters
         delegate void ShootInputReceived();
 
         [Signal]
-        delegate void EnterInputStarted();
+        delegate void EnterStarted();
 
         [Signal]
-        delegate void CombatInputStarted();
+        delegate void CombatStarted();
 
         [Signal]
-        delegate void ExitInputStarted();
+        delegate void ExitStarted();
 
         protected enum State
         {
@@ -38,7 +37,7 @@ namespace LudumDare52.Objects.Characters
             get { return _inputState; }
             set
             {
-                if ( _inputState != value)
+                if (_inputState != value)
                 {
                     _inputState = value;
                     EmitStateSignal(_inputState);
@@ -60,7 +59,6 @@ namespace LudumDare52.Objects.Characters
         }
 
         private Vector2 _moveVector = Vector2.Zero;
-
         private State _inputState = State.ENTER;
 
         public override void _Ready()
@@ -73,13 +71,13 @@ namespace LudumDare52.Objects.Characters
             switch (_inputState)
             {
                 case State.ENTER:
-                    MoveVector = _enterDirection * _moveSpeed;
+                    MoveVector = _enterDirection * _moveSpeed; // Move to _Ready.
                     break;
                 case State.COMBAT:
                     CombatInput(delta);
                     break;
                 case State.EXIT:
-                    MoveVector = Vector2.Left * _moveSpeed;
+                    MoveVector = Vector2.Left * _moveSpeed; // Move to OnHealthChanged.
                     break;
             }
         }
@@ -105,13 +103,13 @@ namespace LudumDare52.Objects.Characters
             switch (state)
             {
                 case State.ENTER:
-                    EmitSignal(nameof(EnterInputStarted));
+                    EmitSignal(nameof(EnterStarted));
                     break;
                 case State.COMBAT:
-                    EmitSignal(nameof(CombatInputStarted));
+                    EmitSignal(nameof(CombatStarted));
                     break;
                 case State.EXIT:
-                    EmitSignal(nameof(ExitInputStarted));
+                    EmitSignal(nameof(ExitStarted));
                     break;
             }
         }
