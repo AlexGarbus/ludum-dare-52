@@ -26,6 +26,10 @@ run/main_scene="res://intro/intro.tscn"
 config/icon="res://icon.png"
 config/windows_native_icon="res://icon.ico"
 
+[autoload]
+
+WindowManager="*res://autoload/WindowManager.cs"
+
 [display]
 
 window/size/width=1920
